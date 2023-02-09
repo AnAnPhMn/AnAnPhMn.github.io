@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, Image, ImageBackground, Button } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, Image, ImageBackground, TouchableOpacity, Modal } from 'react-native'
 
-export default Thanks = function () {
+export default TimeUp = ({ navigation }) => {
     return (
         <View style={{ height: 900 }} >
             <View style={{ justifyContent: 'center' }}>
@@ -11,8 +11,18 @@ export default Thanks = function () {
                     <Image style={styles.textDemtg} source={require('../images/demthoigian.png')} />
 
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <Image style={styles.btn1} source={require('../images/btnManhinhchinh.png')} />
-                        <Image style={styles.btn2} source={require('../images/btnThemtg.png')} />
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate('Welcome');
+                        }}>
+                            <Image style={styles.btn1} source={require('../images/btnManhinhchinh.png')} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate('QrTime');
+                        }}>
+                            <Image style={styles.btn2} source={require('../images/btnThemtg.png')} />
+                        </TouchableOpacity>
+
                     </View>
 
                 </ImageBackground>

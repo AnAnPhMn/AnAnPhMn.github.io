@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import AddPoint from './src/popup thông báo/AddPoint';
 import FullBottle from './src/popup thông báo/FullBottle';
-import Thanks from './src/popup thông báo/Thanks';
+import TimeUp from './src/popup thông báo/TimeUp';
 import Huongdan from './src/views/Huongdan';
 import Loading from './src/views/Loading';
 import QrCode from './src/views/QrCode';
@@ -29,7 +29,7 @@ export default function App() {
         <Stack.Screen name="Thankyou" component={Thankyou} />
         <Stack.Screen name="AddPoint" component={AddPoint} />
         <Stack.Screen name="QrTime" component={QrTime} />
-        <Stack.Screen name="Thanks" component={Thanks} />
+        <Stack.Screen name="TimeUp" component={TimeUp} />
 
       </Stack.Navigator>
     </NavigationContainer>
