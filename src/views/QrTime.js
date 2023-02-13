@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, Image, ImageBackground, Touchable
 
 export default QrTime = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [countdown, setCountdown] = useState(30)
+    const [countdown, setCountdown] = useState(5)
     const timeId = useRef()
     useEffect(() => {
         timeId.current = setInterval(() => {
@@ -14,7 +14,7 @@ export default QrTime = ({ navigation }) => {
     useEffect(() => {
         if (countdown <= 0) {
             clearInterval(timeId.current)
-            navigation.navigate('TimeUp')
+            setModalVisible(!modalVisible)
         }
     }, [countdown])
     return (

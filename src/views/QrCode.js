@@ -3,6 +3,22 @@ import { View, Text, StyleSheet, SafeAreaView, Image, ImageBackground, Touchable
 
 export default QrCode = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
+    const [countdown2, setCountdown2] = useState(40)
+    const timeId2 = useRef()
+    useEffect(() => {
+        timeId2.current = setInterval(() => {
+            setCountdown2(prevState => prevState - 1)
+        }, 1000)
+
+    }, [])
+    useEffect(() => {
+        if (countdown2 <= 0) {
+            clearInterval(timeId2.current)
+            setModalVisible2(!modalVisible2) & navigation.navigate('Welcome')
+        }
+    }, [countdown2])
+    // 
     const [countdown, setCountdown] = useState(30)
     const timeId = useRef()
     useEffect(() => {
@@ -14,7 +30,7 @@ export default QrCode = ({ navigation }) => {
     useEffect(() => {
         if (countdown <= 0) {
             clearInterval(timeId.current)
-            navigation.navigate('TimeUp')
+            setModalVisible2(!modalVisible2)
         }
     }, [countdown])
     return (
@@ -50,6 +66,51 @@ export default QrCode = ({ navigation }) => {
                     </View>
                 </View>
             </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible2}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                    setModalVisible2(!modalVisible2);
+                }}>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+
+                        <ImageBackground style={styles.bgcamon} source={require('../images/bgxoay.png')}>
+                            <View style={{ justifyContent: 'center' }}>
+                                <Image style={styles.tramtaisinh} source={require('../images/tramtaisinhvuong.png')} />
+                                <Image style={styles.textThemtg} source={require('../images/themthoigian.png')} />
+                            </View>
+                            <View style={{ flexDirection: 'row', marginTop: 15, alignSelf: 'center' }}>
+                                <Text style={{ color: '#707172', fontWeight: 'bold', paddingRight: 5 }} >Trở về màn hình chính sau:</Text>
+                                <Text style={{ color: 'red', fontWeight: 'bold', paddingRight: 5 }}>{countdown2}</Text>
+                                <Text style={{ color: 'red', fontWeight: 'bold', paddingRight: 5 }}>GIÂY NỮA</Text>
+                            </View>
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                <TouchableOpacity onPress={() => {
+                                    setModalVisible2(!modalVisible2) &
+                                        navigation.navigate('Welcome');
+                                }}>
+                                    <Image style={styles.btn1} source={require('../images/btnManhinhchinh.png')} />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={() => {
+                                    setModalVisible2(!modalVisible2) &
+                                        navigation.navigate('QrTime');
+                                }}>
+                                    <Image style={styles.btn2} source={require('../images/btnThemtg.png')} />
+                                </TouchableOpacity>
+                            </View>
+
+                        </ImageBackground>
+
+                    </View>
+                </View>
+            </Modal>
+
             <View style={{ height: 900, backgroundColor: '#EAF0F8', }} >
                 <View style={{ justifyContent: 'center' }}>
                     <Image style={styles.Aqua} source={require('../images/aquafina.png')} />
@@ -128,6 +189,18 @@ const styles = StyleSheet.create({
         width: 400,
         height: 500,
     },
+    tramtaisinh: {
+        alignSelf: 'center',
+        width: 120,
+        height: 100
+    },
+    textThemtg: {
+        alignSelf: 'center',
+        width: 310,
+        height: 35,
+        marginTop: 30
+    },
+
     textcamon: {
         width: 250,
         height: 290,
@@ -170,5 +243,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 5,
         borderRadius: 50
+    },
+    btn1: {
+        width: 150,
+        height: 45,
+        marginTop: 50,
+        alignSelf: 'center'
+    },
+    btn2: {
+        width: 150,
+        height: 45,
+        marginTop: 50,
+        alignSelf: 'center'
+
     },
 })
